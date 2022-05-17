@@ -1,0 +1,13 @@
+[mutter.muter]
+sources = []
+
+[mutter.changer.options.music]
+sink = "M-Track 2X2M Digital Stereo (IEC958)"
+
+[mutter.changer.options.meeting]
+card_profile = [
+    "bluez_card.20_74_CF_92_CD_06",
+    "Headset Head Unit (HSP/HFP)",
+]
+source = "OpenComm by Shokz"
+sink = "OpenComm by Shokz"

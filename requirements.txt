@@ -1,0 +1,11 @@
+# Required to connect to Pulse
+pulsectl
+
+# Required to read configuration files
+tomli
+
+# Required for recursive merging and dict to object
+objns
+
+# Colored logging
+colorlog
