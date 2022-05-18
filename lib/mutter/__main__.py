@@ -22,7 +22,7 @@ Argument management module.
 from logging import getLogger
 
 from objns import Namespace
-from pkg_resources import resource_string
+from pkg_resources import resource_string, resource_filename
 
 try:
     # Standard library, available in Python 3.11
@@ -33,6 +33,7 @@ except ImportError:
 from .muter import Muter
 from .client import Client
 from .changer import Changer
+from .sound import play_sound
 from .args import InvalidArguments, parse_args
 
 
@@ -64,6 +65,7 @@ def main():
     config = load_config(args.configs)
 
     client = Client()
+    client.log_system()
 
     # Change command
     if args.command == 'change':
@@ -113,6 +115,12 @@ def main():
         for source in muter.find():
             log.info(f'    -> {source.description}')
 
+        if args.sounds:
+            sound = resource_filename(
+                __package__,
+                f'data/sounds/{args.command}d.wav',
+            )
+            play_sound(sound)
         return 0
 
     return 1

@@ -184,6 +184,12 @@ def parse_args(argv=None):
         dest='colorize',
         help='Do not colorize the log output'
     )
+    parser.add_argument(
+        '--no-sounds',
+        action='store_false',
+        dest='sounds',
+        help='Do not play sounds on actions'
+    )
 
     # Configuration
     parser.add_argument(
