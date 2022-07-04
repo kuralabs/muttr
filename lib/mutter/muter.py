@@ -14,10 +14,6 @@ class Muter:
         self.client = client
         self.sources = sources
 
-        log.info('Sources found for un/mutting:')
-        for source in self.find():
-            log.info(f'    -> {source.description}')
-
     def find(self):
 
         if not self.sources:

@@ -158,7 +158,7 @@ def parse_args(argv=None):
 
     parser = ArgumentParser(
         description=(
-            'Mutter - PulseAudio Utilities and Helper'
+            'Mutter - PulseAudio Utilities and Helpers'
         )
     )
 
@@ -225,6 +225,15 @@ def parse_args(argv=None):
     cmd_change.add_argument(
         'name',
         help='Audio profile name to change to',
+    )
+
+    # Show command
+    cmd_show = subparsers.add_parser(  # noqa
+        'show',
+        help=(
+            'Show all cards, profiles, sinks and sources '
+            'found in the PulseAudio server'
+        ),
     )
 
     # Parse and validate arguments

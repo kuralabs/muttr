@@ -22,6 +22,7 @@ Argument management module.
 from logging import getLogger
 
 from objns import Namespace
+from pulsectl import PulseIndexError
 from pkg_resources import resource_string, resource_filename
 
 try:
@@ -65,7 +66,6 @@ def main():
     config = load_config(args.configs)
 
     client = Client()
-    client.log_system()
 
     # Change command
     if args.command == 'change':
@@ -74,9 +74,17 @@ def main():
             'source': '',
             'sink': '',
         })
-        profile.update(
-            getattr(config.changer.options, args.name)
-        )
+
+        try:
+            profile.update(
+                getattr(config.changer.options, args.name)
+            )
+        except AttributeError:
+            log.error(
+                f'Unknown profile {args.name!r}. '
+                f'Please review your configuration files.'
+            )
+            return 1
 
         changer = Changer(
             client,
@@ -84,7 +92,15 @@ def main():
             source=profile.source,
             sink=profile.sink,
         )
-        changer.change()
+
+        try:
+            changer.change()
+        except PulseIndexError as e:
+            log.error(
+                f'Unable to change to the selected profile {args.name!r}. '
+                f'Card, source or sink couldn\'t be found: {e}'
+            )
+            return 1
 
         log.info(
             f'PulseAudio was successfully changed to:'
@@ -121,6 +137,10 @@ def main():
                 f'data/sounds/{args.command}d.wav',
             )
             play_sound(sound)
+        return 0
+
+    if args.command == 'show':
+        client.show_system(logger=print)
         return 0
 
     return 1
