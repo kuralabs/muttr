@@ -77,6 +77,11 @@ def main():
 
     client = Client()
 
+    # Show command
+    if args.command in ['show', None]:
+        client.show_system(logger=print)
+        return 0
+
     # Change command
     if args.command == 'change':
         profile = Namespace({
@@ -148,11 +153,6 @@ def main():
                 f'data/sounds/{args.command}d.wav',
             )
             play_sound(sound)
-        return 0
-
-    # Show command
-    if args.command == 'show':
-        client.show_system(logger=print)
         return 0
 
     # Daemon command
