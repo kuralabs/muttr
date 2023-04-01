@@ -2,6 +2,9 @@
 Muttr
 =====
 
+.. image:: ./muttr.png
+   :align: right
+
 Mute all inputs, or change audio outputs and inputs easily.
 
 So, you're in a meeting a need to mute yourself (all microphones!),
