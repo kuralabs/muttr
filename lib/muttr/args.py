@@ -158,7 +158,8 @@ def parse_args(argv=None):
 
     parser = ArgumentParser(
         description=(
-            'Muttr - PulseAudio Utilities and Helpers'
+            'Muttr - '
+            'Mute all inputs, or change audio outputs and inputs easily.'
         )
     )
 

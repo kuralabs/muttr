@@ -113,7 +113,7 @@ def main():
             return 1
 
         log.info(
-            f'PulseAudio was successfully changed to:'
+            'PulseAudio was successfully changed to:'
         )
         if changer.card_profile:
             log.info(

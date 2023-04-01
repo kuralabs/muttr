@@ -107,7 +107,7 @@ class Client:
                     f'[{sink.volume}]'
                 )
 
-            logger(f'--')
+            logger('--')
 
     def find_all_sources(self):
         """
