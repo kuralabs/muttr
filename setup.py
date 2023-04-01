@@ -320,6 +320,7 @@ setup(
         'Mute all inputs, or change audio outputs and inputs easily.'
     ),
     long_description=read('README.rst'),
+    long_description_content_type='text/x-rst',
     url='https://github.com/kuralabs/muttr',
     keywords='muttr',
 

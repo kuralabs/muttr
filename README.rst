@@ -240,6 +240,18 @@ passed the arguments to the CLI.
 Changelog
 =========
 
+1.0.0 (2023-04-1)
+------------------
+
+New
+~~~
+
+- Initial public version.
+- Support for muting and unmuting.
+- Support for audio profiles, changing and cycling.
+- Support for global hotkeys and audio profile specific hotkeys.
+
+
 0.1.0 (2022-05-18)
 ------------------
 
