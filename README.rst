@@ -10,7 +10,7 @@ independently of the application you're running? Done.
 You're done with your meeting, you put your headset down and want to listen to
 music in a different audio output? Done.
 
-Your collegue said, hey, can we do a quick meeting? Angrily, you pause your
+Your colleague said, hey, can we do a quick meeting? Angrily, you pause your
 music and grab your headset. Do I need to change the audio input and output
 back to my headset? Yes? Done.
 
@@ -68,8 +68,44 @@ Install
     $ mutter --version
 
 
+Getting Started
+===============
+
+Mute and unmute
+***************
+
+::
+
+    $ mutter mute
+    $ mutter unmute
+
+The above will mute and unmute all audio sources in the system.
+
+If for any reason there is the need to restrict the audio sources to mute the
+following configuration entry may be used:
+
+::
+
+    [mutter.muter]
+    sources = ["first_source", "second_source"]
+
+Create a ``config.toml`` with the above entry and run Mutter with:
+
+::
+
+    $ mutter -c config.toml mute
+    $ mutter -c config.toml unmute
+
+Use the following command to identify which sources are available in your
+system:
+
+::
+
+    $ mutter show
+
+
 Create and change audio profiles
-================================
+********************************
 
 First, connect all your devices (Bluetooth headsets, for example), and run:
 
@@ -79,7 +115,7 @@ First, connect all your devices (Bluetooth headsets, for example), and run:
 
 A complete tree of your audio system will print.
 
-Create a file `config.toml` and fill the profiles you need like this:
+Create a file ``config.toml`` and fill the profiles you need like this:
 
 ::
 
@@ -108,18 +144,79 @@ In this example, the system will have 3 profiles:
 #. One for meetings, using a lightweight Bluetooth bone conductor headset.
    Not the best sound, but is good for voices and is the most comfortable for
    those long meetings.
-#. One for gaming, a large over-ear headphones, awesome sound.
-   Perfect for immersive experiences.
 #. One for listening music, using an external interface connected to some
    great monitor speakers.
+#. One for gaming, a large over-ear headphones, awesome sound.
+   Perfect for immersive experiences.
 
 Once ready, change between audio profiles using:
 
 ::
 
-    $ mutter change music
-    $ mutter change meeting
-    $ mutter change game
+    $ mutter -c config.toml change music
+    $ mutter -c config.toml change meeting
+    $ mutter -c config.toml change game
+
+As noted, at least a sink or a source needs to be declared. In many situations
+there may be the need to change the profile the card associated with the source
+or sink is using. In those situations, use the ``card_profile`` and specify
+which card and card profile to use when changing to that audio profile.
+
+
+Enable system wide mode and hotkeys
+***********************************
+
+To enable kotkeys to change mute/unmute and change between audio profiles run
+Mutter as a daemon:
+
+::
+
+    $ mutter -c config.toml daemon
+
+By default, the following hotkeys are supported:
+
+::
+
+    [mutter.daemon]
+    hotkey_mute = "<ctrl>+<alt>+m"
+    hotkey_unmute = "<ctrl>+<alt>+u"
+    hotkey_mute_toggle = "<cmd_l>+<alt>+m"
+    hotkey_change_cycle = "<cmd_l>+<alt>+c"
+
+:hotkey_mute: Mute all sources.
+:hotkey_unmute: Unmute all sources.
+:hotkey_mute_toggle: Toggle between mute and unmute all sources.
+:hotkey_change_cycle: Change / cycle between all configured audio profiles.
+
+The hotkeys can be changed in your ``config.toml`` using the above snippet.
+Set to empty string to disable the hotkey.
+
+To enable hotkeys to change to specific audio profiles, set the ``hotkey``
+value for the audio profile in the configuration file.
+
+Using the previous example:
+
+::
+
+    [mutter.changer.options.music]
+    hotkey = "<cmd_l>+<alt>+1"
+    sink = "M-Track 2X2M Digital Stereo (IEC958)"
+
+    [mutter.changer.options.meeting]
+    hotkey = "<cmd_l>+<alt>+2"
+    card_profile = [
+        "bluez_card.20_74_CF_92_CD_06",
+        "Headset Head Unit (HSP/HFP)",
+    ]
+    source = "OpenComm by Shokz"
+    sink = "OpenComm by Shokz"
+
+    [mutter.changer.options.game]
+    hotkey = "<cmd_l>+<alt>+3"
+    source = "SteelSeries Arctis 7 Analog Mono"
+    sink = "SteelSeries Arctis 7 Analog Stereo"
+
+When running
 
 
 Changelog
