@@ -25,9 +25,15 @@ class Muter:
             if source.description in self.sources
         ]
 
+    def is_muted(self):
+        return all(
+            bool(source.mute)
+            for source in self.find()
+        )
+
     def mute(self):
         for source in self.find():
-            self.client.pulse.mute(source, True)
+            self.client.pulse.mute(source, mute=True)
             self.client.pulse.volume_set_all_chans(source, 0.0)
 
     def unmute(self):

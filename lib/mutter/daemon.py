@@ -19,7 +19,9 @@
 Daemon to listen on keyboard events to perform actions.
 """
 
+from itertools import cycle
 from logging import getLogger
+from collections import OrderedDict
 
 from objns import Namespace
 from pynput.keyboard import GlobalHotKeys
@@ -41,17 +43,11 @@ class Daemon:
         self.sounds = sounds
 
         self._muter = Muter(client, sources=config.muter.sources)
-        self._changers = {}
+        self._changers = OrderedDict()
 
         self._hotkeys = {}
 
         # Create global hot keys controls
-        def create_global_activate(hotkey, option):
-            def on_activate():
-                log.info(f'Received {hotkey}. Activating action {option} ...')
-                getattr(self, f'on_activate_{option}')()
-            return on_activate
-
         for option in [
             'hotkey_mute',
             'hotkey_unmute',
@@ -62,18 +58,10 @@ class Daemon:
             if not hotkey:
                 continue
 
-            self._hotkeys[hotkey] = create_global_activate(hotkey, option)
+            self._hotkeys[hotkey] = self.create_global_activate(hotkey, option)
             log.info(f'Registering {hotkey} for action {option} ...')
 
         # Create profiles hot keys controls
-        def create_changer_activate(hotkey, changer, profile_key):
-            def on_activate():
-                log.info(
-                    f'Received {hotkey}. Changing profile to {profile_key} ...'
-                )
-                changer.change()
-            return on_activate
-
         for profile_key, profile_data in config.changer.options:
 
             profile = Namespace({
@@ -93,12 +81,15 @@ class Daemon:
 
             hotkey = profile_data.get('hotkey')
             if hotkey:
-                self._hotkeys[hotkey] = create_changer_activate(
+                self._hotkeys[hotkey] = self.create_changer_activate(
                     hotkey, changer, profile_key,
                 )
                 log.info(f'Registering {hotkey} for profile {profile_key} ...')
 
-    def _play(self, action):
+        # Create cycle for changing
+        self._cycle = cycle(self._changers)
+
+    def play(self, action):
         if not self.sounds:
             return
 
@@ -108,19 +99,59 @@ class Daemon:
         )
         play_sound(sound)
 
+    def create_global_activate(self, hotkey, option):
+
+        def on_activate():
+            log.info(f'Received {hotkey}. Activating action {option} ...')
+            callback = f'on_activate_{option.replace("hotkey_", "", 1)}'
+
+            try:
+                getattr(self, callback)()
+            except Exception:
+                log.exception(f'Failed to execute {callback!r}')
+
+        return on_activate
+
+    def create_changer_activate(self, hotkey, changer, profile_key):
+
+        def on_activate():
+            log.info(
+                f'Received {hotkey}. Changing profile to {profile_key!r} ...'
+            )
+
+            try:
+                changer.change()
+                self.play('change')
+            except Exception:
+                log.exception(f'Failed to change to profile {profile_key!r}')
+
+        return on_activate
+
     def on_activate_mute(self):
         self._muter.mute()
-        self._play('mute')
+        self.play('mute')
 
     def on_activate_unmute(self):
         self._muter.unmute()
-        self._play('unmute')
+        self.play('unmute')
 
     def on_activate_mute_toggle(self):
-        log.error(f'Unimplemented action mute_togle')
+        if self._muter.is_muted():
+            self.on_activate_unmute()
+            return
+        self.on_activate_mute()
 
     def on_activate_change_cycle(self):
-        log.error(f'Unimplemented action change_cycle')
+        profile_key = next(self._cycle)
+        changer = self._changers[profile_key]
+
+        log.info(f'Changing to profile {profile_key!r}')
+
+        try:
+            changer.change()
+            self.play('change')
+        except Exception:
+            log.exception(f'Failed to change to profile {profile_key!r}')
 
     def run(self):
         with GlobalHotKeys(self._hotkeys) as h:
