@@ -75,7 +75,7 @@ Getting Started
 ===============
 
 Mute and unmute
-***************
+---------------
 
 ::
 
@@ -108,7 +108,7 @@ system:
 
 
 Create and change audio profiles
-********************************
+--------------------------------
 
 First, connect all your devices (Bluetooth headsets, for example), and run:
 
@@ -167,7 +167,7 @@ which card and card profile to use when changing to that audio profile.
 
 
 Enable system wide mode and hotkeys
-***********************************
+-----------------------------------
 
 To enable kotkeys to change mute/unmute and change between audio profiles run
 Muttr as a daemon:
