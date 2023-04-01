@@ -239,7 +239,7 @@ def parse_args(argv=None):
     # Daemon command
     cmd_daemon = subparsers.add_parser(  # noqa
         'daemon',
-        help='Launch the Mutter daemon'
+        help='Launch the Muttr daemon'
     )
 
     # Parse and validate arguments
