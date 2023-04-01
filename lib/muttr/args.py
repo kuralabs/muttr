@@ -174,10 +174,7 @@ def parse_args(argv=None):
     parser.add_argument(
         '--version',
         action='version',
-        version='{} {}'.format(
-            parser.description,
-            __version__,
-        ),
+        version=__version__,
     )
     parser.add_argument(
         '--no-color',
