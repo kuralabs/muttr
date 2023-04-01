@@ -1,6 +1,6 @@
-======
-Mutter
-======
+=====
+Muttr
+=====
 
 Mute all inputs, or change audio outputs and inputs easily.
 
@@ -14,9 +14,9 @@ Your colleague said, hey, can we do a quick meeting? Angrily, you pause your
 music and grab your headset. Do I need to change the audio input and output
 back to my headset? Yes? Done.
 
-So, what's Mutter?
+So, what's Muttr?
 
-Mutter is a tool specially made for COVID-19 pandemic working from home people.
+Muttr is a tool specially made for COVID-19 pandemic working from home people.
 
 It allows to:
 
@@ -37,25 +37,25 @@ It allows to:
 
   > Yay meeting is no more, music fun times, oh wait forget about it.
 
-.. image:: https://img.shields.io/pypi/v/mutter
-   :target: https://pypi.org/project/mutter/
+.. image:: https://img.shields.io/pypi/v/muttr
+   :target: https://pypi.org/project/muttr/
    :alt: PyPI
 
-.. image:: https://img.shields.io/github/license/kuralabs/mutter
+.. image:: https://img.shields.io/github/license/kuralabs/muttr
    :target: https://choosealicense.com/licenses/apache-2.0/
    :alt: License
 
 
-Mutter uses PulseAudio API to do all of this, so it is supported in operating
+Muttr uses PulseAudio API to do all of this, so it is supported in operating
 systems that use PulseAudio to control the audio devices. For example, Ubuntu,
 and many other Linux based operating systems.
 
-With Mutter you can configure audio profiles, that is, what audio devices,
+With Muttr you can configure audio profiles, that is, what audio devices,
 their inputs and outputs (sources and sinks, in PulseAudio terminology) you
 want to use at a determined point in time.
 
 You can mute, unmute, or swap between those audio profiles using the CLI. Or
-you can assign a key combination, start the Mutter daemon and perform those
+you can assign a key combination, start the Muttr daemon and perform those
 actions using your keyboard. This is great when using macropads!
 
 
@@ -64,8 +64,8 @@ Install
 
 .. code-block:: sh
 
-    $ sudo pip3 install mutter
-    $ mutter --version
+    $ sudo pip3 install muttr
+    $ muttr --version
 
 
 Getting Started
@@ -76,8 +76,8 @@ Mute and unmute
 
 ::
 
-    $ mutter mute
-    $ mutter unmute
+    $ muttr mute
+    $ muttr unmute
 
 The above will mute and unmute all audio sources in the system.
 
@@ -86,22 +86,22 @@ following configuration entry may be used:
 
 ::
 
-    [mutter.muter]
+    [muttr.muter]
     sources = ["first_source", "second_source"]
 
-Create a ``config.toml`` with the above entry and run Mutter with:
+Create a ``config.toml`` with the above entry and run Muttr with:
 
 ::
 
-    $ mutter -c config.toml mute
-    $ mutter -c config.toml unmute
+    $ muttr -c config.toml mute
+    $ muttr -c config.toml unmute
 
 Use the following command to identify which sources are available in your
 system:
 
 ::
 
-    $ mutter show
+    $ muttr show
 
 
 Create and change audio profiles
@@ -111,7 +111,7 @@ First, connect all your devices (Bluetooth headsets, for example), and run:
 
 ::
 
-    $ mutter show
+    $ muttr show
 
 A complete tree of your audio system will print.
 
@@ -119,7 +119,7 @@ Create a file ``config.toml`` and fill the profiles you need like this:
 
 ::
 
-    [mutter.changer.options.meeting]
+    [muttr.changer.options.meeting]
     card_profile = [
         "bluez_card.20_74_CF_92_CD_06",
         "Headset Head Unit (HSP/HFP)",
@@ -127,14 +127,14 @@ Create a file ``config.toml`` and fill the profiles you need like this:
     source = "OpenComm by Shokz"
     sink = "OpenComm by Shokz"
 
-    [mutter.changer.options.music]
+    [muttr.changer.options.music]
     card_profile = [
         "bluez_card.20_74_CF_92_CD_06",
         "Headset Head Unit (HSP/HFP)",
     ]
     sink = "M-Track 2X2M Digital Stereo (IEC958)"
 
-    [mutter.changer.options.game]
+    [muttr.changer.options.game]
     source = "SteelSeries Arctis 7 Analog Mono"
     sink = "SteelSeries Arctis 7 Analog Stereo"
 
@@ -153,9 +153,9 @@ Once ready, change between audio profiles using:
 
 ::
 
-    $ mutter -c config.toml change music
-    $ mutter -c config.toml change meeting
-    $ mutter -c config.toml change game
+    $ muttr -c config.toml change music
+    $ muttr -c config.toml change meeting
+    $ muttr -c config.toml change game
 
 As noted, at least a sink or a source needs to be declared. In many situations
 there may be the need to change the profile the card associated with the source
@@ -167,17 +167,17 @@ Enable system wide mode and hotkeys
 ***********************************
 
 To enable kotkeys to change mute/unmute and change between audio profiles run
-Mutter as a daemon:
+Muttr as a daemon:
 
 ::
 
-    $ mutter -c config.toml daemon
+    $ muttr -c config.toml daemon
 
 By default, the following hotkeys are supported:
 
 ::
 
-    [mutter.daemon]
+    [muttr.daemon]
     hotkey_mute = "<ctrl>+<alt>+m"
     hotkey_unmute = "<ctrl>+<alt>+u"
     hotkey_mute_toggle = "<cmd_l>+<alt>+m"
@@ -198,11 +198,11 @@ Using the previous example:
 
 ::
 
-    [mutter.changer.options.music]
+    [muttr.changer.options.music]
     hotkey = "<cmd_l>+<alt>+1"
     sink = "M-Track 2X2M Digital Stereo (IEC958)"
 
-    [mutter.changer.options.meeting]
+    [muttr.changer.options.meeting]
     hotkey = "<cmd_l>+<alt>+2"
     card_profile = [
         "bluez_card.20_74_CF_92_CD_06",
@@ -211,7 +211,7 @@ Using the previous example:
     source = "OpenComm by Shokz"
     sink = "OpenComm by Shokz"
 
-    [mutter.changer.options.game]
+    [muttr.changer.options.game]
     hotkey = "<cmd_l>+<alt>+3"
     source = "SteelSeries Arctis 7 Analog Mono"
     sink = "SteelSeries Arctis 7 Analog Stereo"

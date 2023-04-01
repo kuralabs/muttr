@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2017-2022 KuraLabs S.R.L
+# Copyright (C) 2017-2023 KuraLabs S.R.L
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -158,7 +158,7 @@ def parse_args(argv=None):
 
     parser = ArgumentParser(
         description=(
-            'Mutter - PulseAudio Utilities and Helpers'
+            'Muttr - PulseAudio Utilities and Helpers'
         )
     )
 
