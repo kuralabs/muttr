@@ -1,10 +1,16 @@
-# Required to connect to Pulse
+# Connect to PulseAudio
 pulsectl
 
-# Required to read configuration files
+# Listen to keyboard events
+pynput
+
+# Package data and other packages metadata
+setuptools
+
+# Read configuration files
 tomli
 
-# Required for recursive merging and dict to object
+# Recursive merging and dict to object
 objns
 
 # Colored logging

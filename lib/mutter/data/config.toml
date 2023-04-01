@@ -1,10 +1,18 @@
+[mutter.daemon]
+hotkey_mute = '<ctrl>+<alt>+m'
+hotkey_unmute = '<ctrl>+<alt>+u'
+hotkey_mute_toggle = ''
+hotkey_change_cycle = ''
+
 [mutter.muter]
 sources = []
 
 [mutter.changer.options.music]
+hotkey = '<ctrl>+<alt>+1'
 sink = "M-Track 2X2M Digital Stereo (IEC958)"
 
 [mutter.changer.options.meeting]
+hotkey = '<ctrl>+<alt>+2'
 card_profile = [
     "bluez_card.20_74_CF_92_CD_06",
     "Headset Head Unit (HSP/HFP)",

@@ -236,6 +236,12 @@ def parse_args(argv=None):
         ),
     )
 
+    # Daemon command
+    cmd_daemon = subparsers.add_parser(  # noqa
+        'daemon',
+        help='Launch the Mutter daemon'
+    )
+
     # Parse and validate arguments
     args = parser.parse_args(argv)
 

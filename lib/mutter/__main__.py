@@ -33,6 +33,7 @@ except ImportError:
 
 from .muter import Muter
 from .client import Client
+from .daemon import Daemon
 from .changer import Changer
 from .sound import play_sound
 from .args import InvalidArguments, parse_args
@@ -121,6 +122,7 @@ def main():
 
         return 0
 
+    # Mute/unmute command
     if args.command in ['mute', 'unmute']:
         muter = Muter(client, sources=config.muter.sources)
         action = getattr(muter, args.command)
@@ -139,8 +141,16 @@ def main():
             play_sound(sound)
         return 0
 
+    # Show command
     if args.command == 'show':
         client.show_system(logger=print)
+        return 0
+
+    # Daemon command
+    if args.command == 'daemon':
+        client.show_system(logger=print)
+        daemon = Daemon(client, config, args.sounds)
+        daemon.run()
         return 0
 
     return 1
