@@ -23,47 +23,18 @@ from logging import getLogger
 
 from objns import Namespace
 from pulsectl import PulseIndexError
-from pkg_resources import resource_string, resource_filename
-
-try:
-    # Standard library, available in Python 3.11
-    from tomllib import loads
-except ImportError:
-    from tomli import loads
+from pkg_resources import resource_filename
 
 from .muter import Muter
 from .client import Client
 from .daemon import Daemon
 from .changer import Changer
 from .sound import play_sound
+from .config import load_config
 from .args import InvalidArguments, parse_args
 
 
 log = getLogger(__name__)
-
-
-def load_config(configs):
-    """
-    Load application default configuration and apply overrides from the the
-    given configurations files, in the order given.
-
-    :param list configs: List of paths to configuration files (TOML).
-
-    :return: The final, overriden and merged configuration.
-    :rtype: dict
-    """
-    config = Namespace(loads(
-        resource_string(
-            __package__, 'data/config.toml'
-        ).decode(encoding='utf-8')
-    )).muttr
-
-    for configfile in configs:
-        config.update(loads(
-            configfile.read_text(encoding='utf-8')
-        ))
-
-    return config
 
 
 def main():

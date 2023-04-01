@@ -219,7 +219,22 @@ Using the previous example:
     source = "SteelSeries Arctis 7 Analog Mono"
     sink = "SteelSeries Arctis 7 Analog Stereo"
 
-When running
+With the above configuration the hotkeys ``CMD+ALT+1`` can be used to change to
+the ``music`` audio profile, and so on.
+
+
+Using system wide configuration files
+-------------------------------------
+
+Muttr support the following files for system wide and/or user wide setup:
+
+- ``/etc/muttr/config.toml``
+- ``~/.config/muttr/config.toml``
+
+Configuration files will be read in that order and the last will override any
+configuration from the previous file. Finally, user configuration files passed
+using argument ``-c`` or ``--config`` are read last in the order the user
+passed the arguments to the CLI.
 
 
 Changelog

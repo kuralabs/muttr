@@ -7,20 +7,20 @@ hotkey_change_cycle = "<cmd_l>+<alt>+c"
 [muttr.muter]
 sources = []
 
-[muttr.changer.options.music]
-hotkey = "<cmd_l>+<alt>+1"
-sink = "M-Track 2X2M Digital Stereo (IEC958)"
-
-[muttr.changer.options.meeting]
-hotkey = "<cmd_l>+<alt>+2"
-card_profile = [
-    "bluez_card.20_74_CF_92_CD_06",
-    "Headset Head Unit (HSP/HFP)",
-]
-source = "OpenComm by Shokz"
-sink = "OpenComm by Shokz"
-
-[muttr.changer.options.game]
-hotkey = "<cmd_l>+<alt>+3"
-source = "SteelSeries Arctis 7 Analog Mono"
-sink = "SteelSeries Arctis 7 Analog Stereo"
+# [muttr.changer.options.music]
+# hotkey = "<cmd_l>+<alt>+1"
+# sink = "M-Track 2X2M Digital Stereo (IEC958)"
+#
+# [muttr.changer.options.meeting]
+# hotkey = "<cmd_l>+<alt>+2"
+# card_profile = [
+#     "bluez_card.20_74_CF_92_CD_06",
+#     "Headset Head Unit (HSP/HFP)",
+# ]
+# source = "OpenComm by Shokz"
+# sink = "OpenComm by Shokz"
+#
+# [muttr.changer.options.game]
+# hotkey = "<cmd_l>+<alt>+3"
+# source = "SteelSeries Arctis 7 Analog Mono"
+# sink = "SteelSeries Arctis 7 Analog Stereo"
