@@ -36,6 +36,13 @@ log = getLogger(__name__)
 
 
 class Daemon:
+    """
+    Muttr daemon class to listen on keyboard events.
+
+    :param Client client: Muttr PulseAudio client wrapper.
+    :param Namespace config: System's configuration.
+    :param bool sounds: Enable or disable sound playback.
+    """
 
     def __init__(self, client, config, sounds):
         self.client = client
@@ -90,6 +97,13 @@ class Daemon:
         self._cycle = cycle(self._changers)
 
     def play(self, action):
+        """
+        Play the sound of the given action.
+
+        This assumes that the file exists in package data.
+
+        Will only play the sound if daemon sounds are enabled.
+        """
         if not self.sounds:
             return
 
@@ -100,7 +114,9 @@ class Daemon:
         play_sound(sound)
 
     def create_global_activate(self, hotkey, option):
-
+        """
+        Create a closure to bind a hotkey with an action callback.
+        """
         def on_activate():
             log.info(f'Received {hotkey}. Activating action {option} ...')
             callback = f'on_activate_{option.replace("hotkey_", "", 1)}'
@@ -113,6 +129,9 @@ class Daemon:
         return on_activate
 
     def create_changer_activate(self, hotkey, changer, profile_key):
+        """
+        Create a closure to bind a hotkey with a particular audio profile.
+        """
 
         def on_activate():
             log.info(
@@ -154,6 +173,9 @@ class Daemon:
             log.exception(f'Failed to change to profile {profile_key!r}')
 
     def run(self):
+        """
+        Run the Muttr daemon.
+        """
         with GlobalHotKeys(self._hotkeys) as h:
             h.join()
 

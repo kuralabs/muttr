@@ -29,11 +29,21 @@ log = getLogger(__name__)
 
 
 class Client:
+    """
+    Muttr PulseAudio client wrapper.
+
+    Basically implements PulseAudio utilities used by action classes.
+    """
 
     def __init__(self, **kwargs):
         self.pulse = Pulse(**kwargs)
 
     def show_system(self, logger=log.info):
+        """
+        Print this system's audio cards, profiles, sinks and sources tree.
+
+        :param logger: Function to print the tree.
+        """
 
         info = self.pulse.server_info()
         logger(

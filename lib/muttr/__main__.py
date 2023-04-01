@@ -43,6 +43,15 @@ log = getLogger(__name__)
 
 
 def load_config(configs):
+    """
+    Load application default configuration and apply overrides from the the
+    given configurations files, in the order given.
+
+    :param list configs: List of paths to configuration files (TOML).
+
+    :return: The final, overriden and merged configuration.
+    :rtype: dict
+    """
     config = Namespace(loads(
         resource_string(
             __package__, 'data/config.toml'

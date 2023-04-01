@@ -26,6 +26,15 @@ log = getLogger(__name__)
 
 
 class Changer:
+    """
+    Class implementing the command to change to a audio profile.
+
+    :param Client client: Muttr PulseAudio client wrapper.
+    :param list card_profile: Tuple with card name and profile to configure for
+     this profile.
+    :param str source: Name of the source to setup for this profile, if any.
+    :param str sink: Name of the sink to setup for this profile, if any.
+    """
 
     def __init__(self, client, card_profile=None, source=None, sink=None):
         self.client = client
@@ -38,7 +47,9 @@ class Changer:
         )
 
     def change(self):
-
+        """
+        Execute action and change to this profile.
+        """
         if self.card_profile:
             card_name, profile_desc = self.card_profile
 

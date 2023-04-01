@@ -2,10 +2,18 @@
 Muttr
 =====
 
-.. image:: ./muttr.png
-   :align: right
+.. image:: https://img.shields.io/pypi/v/muttr
+   :target: https://pypi.org/project/muttr/
+   :alt: PyPI
 
-Mute all inputs, or change audio outputs and inputs easily.
+.. image:: https://img.shields.io/github/license/kuralabs/muttr
+   :target: https://choosealicense.com/licenses/apache-2.0/
+   :alt: License
+
+*Mute all inputs, or change audio outputs and inputs easily.*
+
+.. image:: ./muttr.png
+   :height: 250px
 
 So, you're in a meeting a need to mute yourself (all microphones!),
 independently of the application you're running? Done.
@@ -17,7 +25,7 @@ Your colleague said, hey, can we do a quick meeting? Angrily, you pause your
 music and grab your headset. Do I need to change the audio input and output
 back to my headset? Yes? Done.
 
-So, what's Muttr?
+**So, what's Muttr?**
 
 Muttr is a tool specially made for COVID-19 pandemic working from home people.
 
@@ -26,27 +34,19 @@ It allows to:
 - Mute all sources (microphones) at the same time, in case the application is
   getting audio from a different source of the one you think its on.
 
-  > Am I muted? Am I muted? Yes, you are!
+  *Am I muted? Am I muted? Yes, you are!*
 
 - To mute independently of the application you're running (Slack, Zoom, Teams)
   because it mutes the sound server from the operating system (PulseAudio).
 
-  > What was the hotkey for Slack? Oh wait that's the hotkey for Teams! Where
-  > is that damn mute button and why it is so small and hidden and dark?
+  *What was the hotkey for Slack? Oh wait that's the hotkey for Teams! Where*
+  *is that damn mute button and why it is so small and hidden and dark?*
 
 - To change between audio profiles, for example, to quickly change to your
   headset before a meeting, and then change back to your speakers to listen
   music.
 
-  > Yay meeting is no more, music fun times, oh wait forget about it.
-
-.. image:: https://img.shields.io/pypi/v/muttr
-   :target: https://pypi.org/project/muttr/
-   :alt: PyPI
-
-.. image:: https://img.shields.io/github/license/kuralabs/muttr
-   :target: https://choosealicense.com/licenses/apache-2.0/
-   :alt: License
+  *Yay meeting is no more, music fun times, oh wait forget about it.*
 
 
 Muttr uses PulseAudio API to do all of this, so it is supported in operating
